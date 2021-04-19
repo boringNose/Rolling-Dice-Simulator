@@ -9,7 +9,14 @@ def create_ovals(points):
 
 
 def btn_pressed(event):
-    btn_value.set("Dices Rolled")
+    if len(ovals) == 0:
+        pass
+    else:
+        result.set("D1:0, D2:0")
+        for x in ovals:
+            c.delete(x)
+        ovals.clear()
+
     random_num1 = str(random.randrange(1, 7))
     random_num2 = str(random.randrange(1, 7))
     result.set("D1: " + random_num1 + ", D2: " + random_num2)
@@ -32,14 +39,6 @@ def btn_pressed(event):
     create_ovals(choose_cords2)
 
 
-def btn_released(event):
-    btn_value.set("Roll Again")
-    result.set("D1:0, D2:0")
-    for x in ovals:
-        c.delete(x)
-    ovals.clear()
-
-
 ovals = []  # stores oval instances
 
 window = Tk()      # creates an instance for main window
@@ -54,7 +53,6 @@ btn_value = StringVar()     # stores string value for button's variable
 btn_value.set("ROLL")
 rollBtn = Button(window, textvariable=btn_value, width=10, height=2, bg="black", fg="white")
 rollBtn.bind("<Button-1>", btn_pressed)     # binds a left button event
-rollBtn.bind("<ButtonRelease-1>", btn_released)     # binds a left button release event
 rollBtn.pack(pady=20)
 
 result = StringVar()
